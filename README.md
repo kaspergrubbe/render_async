@@ -1,13 +1,16 @@
-# RenderAsync
+# render-async
 
 Lets you render paths asynchronously in Rails with an AJAX call. You use it like this:
 
-```
+```ruby
 # routes.rb:
-match 'articles/counter' => 'articles#counter', :as => :articles_counter
-# ^ Of course you won't use match, but you get the idea.
 
+get 'articles/counter' => 'articles#counter', :as => :articles_counter
+```
+
+```erb
 # In a view template:
+
 <%= render_async articles_counter_path %>
 ```
 
@@ -18,23 +21,32 @@ This will generate the following HTML:
 
 <script type="text/javascript">
 (function($){
-  div_elem = $("#render_async_1a931cec881377296672");
+  divElement = $("#render_async_1a931cec881377296672");
+  spinnerElement = $("#render_async_1a931cec881377296672 spinner");
   $.ajax({
-    url: "/articles/counter",
-    success: function(response, status) {
-      div_elem.html(response);
-    }
-  });
+      url: "/articles/counter",
+    })
+    .done(function(response, status) {
+      divElement.html(response);
+    })
+    .fail(function(response, status) {
+      divElement.html(response);
+    })
+    .always(function(response, status) {
+      spinnerElement.hide();
+    });
 }(jQuery));
 </script>
 ```
 
 ## Requirements
 
-RenderAsync depends on a footer-block in your application-wide template, like this:
+render-async depends on a footer-block in your application-wide template, like this:
 
 ```erb
-<%= yield :footer %>
+# application.html.erb
+
+<%= yield :render_async %>
 ```
 
 And it also depends on you having included jQuery on the page.
