@@ -1,15 +1,27 @@
-<div id="<%= container_name %>"></div>
+<div id="<%= container_name %>">
+  <div id="<%= container_name %> spinner" class="sk-spinner sk-spinner-double-bounce">
+    <div class="sk-double-bounce1"></div>
+    <div class="sk-double-bounce2"></div>
+  </div>
+</div>
 
-<% content_for :footer do %>
+<% content_for :render_async do %>
   <script type="text/javascript">
     (function($){
-      div_elem = $("#<%= container_name %>");
+      divElement = $("#<%= container_name %>");
+      spinnerElement = $("#<%= container_name %> spinner");
       $.ajax({
-        url: "<%= path %>",
-        success: function(response, status) {
-          div_elem.html(response);
-        }
-      });
+          url: "<%= path %>",
+        })
+        .done(function(response, status) {
+          divElement.html(response);
+        })
+        .fail(function(response, status) {
+          divElement.html(response);
+        })
+        .always(function(response, status) {
+          spinnerElement.hide();
+        });
     }(jQuery));
   </script>
 <% end %>
