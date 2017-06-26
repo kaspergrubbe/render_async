@@ -1,5 +1,9 @@
 [![Build Status](https://semaphoreci.com/api/v1/renderedtext/render_async/branches/master/badge.svg)](https://semaphoreci.com/renderedtext/render_async)
 
+# THIS PROJECT HAVE MOVED TO https://github.com/renderedtext/render_async
+
+This project are now maintained by the kind people over at RenderedText/SemaphoreCI, this project just lives here because the original auther (me!) is a bit nostalgic, please go to https://github.com/renderedtext/render_async for updates.
+
 # RenderAsync
 
 Renders partials to your views **asynchronously**. This is done through adding
